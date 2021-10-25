@@ -13,7 +13,6 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    //Post request https://messaging-test.bixly.com/api-token-auth to login user
     login(this.state);
     this.props.handleLogin();
     this.setState({ username: "", password: "" });
