@@ -48,7 +48,10 @@ class Dashboard extends Component {
 
   handleDeleteMessage = (id) => {
     deleteMessage(id);
-    this.setState({ show: "Inbox" });
+    this.setState({
+      messages: [...this.state.messages.filter((message) => message.id !== id)],
+      show: "Sent",
+    });
   };
 
   handleDeletesSentMessage = (id) => {
