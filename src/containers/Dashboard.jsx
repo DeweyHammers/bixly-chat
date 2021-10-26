@@ -4,6 +4,7 @@ import Inbox from "../components/Inbox";
 import Sent from "../components/Sent";
 import Compose from "../components/Compose";
 import Message from "../components/Message";
+import Error from "../components/Error";
 import SentMessage from "../components/SentMessage";
 import {
   getMessages,
@@ -11,6 +12,7 @@ import {
   sendNewMessage,
   deleteMessage,
 } from "../api";
+import { Container } from "react-bootstrap";
 
 class Dashboard extends Component {
   state = {
@@ -19,23 +21,45 @@ class Dashboard extends Component {
     sent_messages: [],
     message: {},
     sent_message: {},
+    error: false,
   };
 
   componentDidMount() {
-    getMessages();
-    getSentMessages();
+    this.handleFetchData();
   }
+
+  handleFetchData = () => {
+    getMessages(this.props.token)
+      .then((response) => this.setState({ messages: response.data }))
+      .catch(() =>
+        this.setState({
+          error: "There was an error with getting your messages",
+        })
+      );
+    getSentMessages(this.props.token)
+      .then((response) => this.setState({ sent_messages: response.data }))
+      .catch(() =>
+        this.setState({
+          error: "There was an error with getting your messages",
+        })
+      );
+  };
 
   handleShow = (string) => {
     this.setState({ show: string });
   };
 
   handleSendMessage = (message) => {
-    sendNewMessage(message);
-    this.setState({
-      sent_messages: [...this.state.sent_messages, message],
-      show: "Sent",
-    });
+    sendNewMessage(message, this.props.token)
+      .then(() => {
+        this.handleFetchData();
+        this.setState({ show: "Sent" });
+      })
+      .catch(() =>
+        this.setState({
+          error: "There was an error with your request please try again",
+        })
+      );
   };
 
   handleSetMessage = (message) => {
@@ -47,21 +71,33 @@ class Dashboard extends Component {
   };
 
   handleDeleteMessage = (id) => {
-    deleteMessage(id);
-    this.setState({
-      messages: [...this.state.messages.filter((message) => message.id !== id)],
-      show: "Sent",
-    });
+    deleteMessage(id, this.props.token)
+      .then(() => {
+        this.handleFetchData();
+        this.setState({ show: "Inbox" });
+      })
+      .catch(() =>
+        this.setState({
+          error: "There was an error with your request please try again",
+        })
+      );
   };
 
   handleDeletesSentMessage = (id) => {
-    deleteMessage(id);
-    this.setState({
-      sent_messages: [
-        ...this.state.sent_messages.filter((message) => message.id !== id),
-      ],
-      show: "Sent",
-    });
+    deleteMessage(id, this.props.token)
+      .then(() => {
+        this.handleFetchData();
+        this.setState({ show: "Sent" });
+      })
+      .catch(() =>
+        this.setState({
+          error: "There was an error with your request please try again",
+        })
+      );
+  };
+
+  handleCloseError = () => {
+    this.setState({ error: false });
   };
 
   display = () => {
@@ -96,6 +132,10 @@ class Dashboard extends Component {
             handleDeletesSentMessage={this.handleDeletesSentMessage}
           />
         );
+      default:
+        return this.setState({
+          error: "There was an error trying to load the page",
+        });
     }
   };
 
@@ -106,7 +146,15 @@ class Dashboard extends Component {
           handleLogout={this.props.handleLogout}
           handleShow={this.handleShow}
         />
-        {this.display()}
+        <Container>
+          {this.state.error && (
+            <Error
+              error={this.state.error}
+              closeError={this.handleCloseError}
+            />
+          )}
+          {this.display()}
+        </Container>
       </div>
     );
   }

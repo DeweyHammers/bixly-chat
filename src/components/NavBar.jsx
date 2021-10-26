@@ -1,13 +1,18 @@
+import { Navbar, Nav, Container } from "react-bootstrap";
+
 const NavBar = ({ handleLogout, handleShow }) => {
   return (
-    <div>
-      <h1>
-        Bixly Chat <button onClick={() => handleShow("Inbox")}>Inbox</button>{" "}
-        <button onClick={() => handleShow("Sent")}>Sent</button>{" "}
-        <button onClick={() => handleShow("Compose")}>Compose</button>{" "}
-        <button onClick={() => handleLogout()}>Logout</button>
-      </h1>
-    </div>
+    <Navbar bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand>Bixly Chat</Navbar.Brand>
+        <Nav className="me-auto">
+          <Nav.Link onClick={() => handleShow("Inbox")}>Inbox</Nav.Link>
+          <Nav.Link onClick={() => handleShow("Sent")}>Sent</Nav.Link>
+          <Nav.Link onClick={() => handleShow("Compose")}>Compose</Nav.Link>
+          <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
   );
 };
 

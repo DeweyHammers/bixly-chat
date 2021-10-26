@@ -1,13 +1,18 @@
+import { Col, Button } from "react-bootstrap";
+
 const Message = ({ message, handleDeletesSentMessage }) => {
   return (
-    <div>
+    <Col style={{ textAlign: "center" }} md={{ span: 6, offset: 2 }}>
       <h1>{message.title}</h1>
       <p>Receiver: {message.receiver}</p>
       <p>{message.body}</p>
-      <button onClick={() => handleDeletesSentMessage(message.id)}>
+      <Button
+        variant="danger"
+        onClick={() => handleDeletesSentMessage(message.id)}
+      >
         Delete
-      </button>
-    </div>
+      </Button>
+    </Col>
   );
 };
 

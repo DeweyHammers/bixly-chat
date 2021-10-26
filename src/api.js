@@ -3,31 +3,41 @@ import axios from "axios";
 const URL = "https://messaging-test.bixly.com";
 
 export const login = (data) => {
-  // Send post to api-token-auth/
-  console.log("Login", data);
+  return axios.post(`${URL}/api-token-auth/`, {
+    username: data.username,
+    password: data.password,
+  });
 };
 
-export const checkIfLoggedin = () => {
-  // Send post to api-token-auth/
-  console.log("Check for login");
+export const getMessages = (token) => {
+  return axios.get(`${URL}/messages/`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
 };
 
-export const getMessages = () => {
-  // Send get to messages
-  console.log("Get messages");
+export const getSentMessages = (token) => {
+  return axios.get(`${URL}/messages/sent`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
 };
 
-export const getSentMessages = () => {
-  // Send get to messages/sent
-  console.log("Get Sent Messages");
+export const sendNewMessage = (data, token) => {
+  return axios.post(`${URL}/messages/`, data, {
+    headers: {
+      Authorization: `Token ${token}`,
+      "content-type": "application/json",
+    },
+  });
 };
 
-export const sendNewMessage = (data) => {
-  // Send post to messages
-  console.log("Send new message", data);
-};
-
-export const deleteMessage = (id) => {
-  // Send delete to messages/1/
-  console.log("Delete message", id);
+export const deleteMessage = (id, token) => {
+  return axios.delete(`${URL}/messages/${id}`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
 };

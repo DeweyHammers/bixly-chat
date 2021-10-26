@@ -1,32 +1,41 @@
 import React, { Component } from "react";
 import Login from "./components/auth/Login";
 import Dashboard from "./containers/Dashboard";
-import { checkIfLoggedin } from "./api";
 
 class App extends Component {
   state = {
     loggedIn: false,
+    token: "",
   };
 
   componentDidMount() {
-    checkIfLoggedin();
+    const token = window.sessionStorage.getItem("token");
+    token && this.setState({ loggedIn: true, token: token });
   }
 
-  handleLogin = () => {
-    this.setState({ loggedIn: true });
+  handleLogin = (token) => {
+    window.sessionStorage.setItem("token", token);
+    this.setState({ loggedIn: true, token: token });
   };
 
   handleLogout = () => {
-    this.setState({ loggedIn: false });
+    window.sessionStorage.removeItem("token");
+    this.setState({ loggedIn: false, token: "" });
   };
 
   render() {
     return (
       <div>
         {!this.state.loggedIn ? (
-          <Login handleLogin={this.handleLogin} />
+          <Login
+            setToken={this.handleSetToken}
+            handleLogin={this.handleLogin}
+          />
         ) : (
-          <Dashboard handleLogout={this.handleLogout} />
+          <Dashboard
+            token={this.state.token}
+            handleLogout={this.handleLogout}
+          />
         )}
       </div>
     );
