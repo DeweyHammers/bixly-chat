@@ -7,7 +7,7 @@ import Error from "./Error";
 import { sendNewMessage } from "../api";
 import { Container } from "react-bootstrap";
 
-class Dashboard extends Component {
+export default class Dashboard extends Component {
   state = {
     show: "Inbox",
     showMessage: false,
@@ -92,5 +92,3 @@ class Dashboard extends Component {
     );
   }
 }
-
-export default Dashboard;

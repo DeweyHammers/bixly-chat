@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 
-class Compose extends Component {
+export default class Compose extends Component {
   state = {
     title: "",
     body: "",
@@ -64,5 +64,3 @@ class Compose extends Component {
     );
   }
 }
-
-export default Compose;

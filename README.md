@@ -1,6 +1,6 @@
 # Welcome to the Bixly Chat app
 
-This a full crud messaging app
+This is a full crud messaging app
 
 ## To get started please run npm install and npm start
 

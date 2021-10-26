@@ -3,7 +3,7 @@ import Error from "../Error";
 import { login } from "../../api";
 import { Form, Button, Container, Col } from "react-bootstrap";
 
-class Login extends Component {
+export default class Login extends Component {
   state = {
     username: "",
     password: "",
@@ -78,5 +78,3 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
