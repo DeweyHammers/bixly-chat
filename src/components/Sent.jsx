@@ -1,9 +1,9 @@
 import { Table, Col } from "react-bootstrap";
 
-const Sent = ({ sent_messages, handleSetSentMessage }) => {
+const Sent = ({ messages, setMessage }) => {
   const renderSentMessage = () => {
-    return sent_messages.map((message) => (
-      <tr key={message.id} onClick={() => handleSetSentMessage(message)}>
+    return messages.map((message) => (
+      <tr key={message.id} onClick={() => setMessage(message)}>
         <td>{message.title}</td>
         <td>{message.receiver}</td>
       </tr>

@@ -17,6 +17,7 @@ class Login extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
+    // Make a fetch call to the api to check if username and password are correct
     login({ username, password })
       .then((response) => this.props.handleLogin(response.data.token))
       .catch(() =>

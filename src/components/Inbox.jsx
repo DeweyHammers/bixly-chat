@@ -1,9 +1,9 @@
 import { Table, Col } from "react-bootstrap";
 
-const InboxComponent = ({ messages, handleSetMessage }) => {
+const InboxComponent = ({ messages, setMessage }) => {
   const renderMessages = () => {
     return messages.map((message) => (
-      <tr key={message.id} onClick={() => handleSetMessage(message)}>
+      <tr key={message.id} onClick={() => setMessage(message)}>
         <td>{message.title}</td>
         <td>{message.sender}</td>
       </tr>

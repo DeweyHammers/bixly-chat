@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Login from "./components/auth/Login";
-import Dashboard from "./containers/Dashboard";
+import Dashboard from "./components/Dashboard";
 
 class App extends Component {
   state = {
@@ -9,22 +9,26 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const token = window.sessionStorage.getItem("token");
+    // Check to see if there is a token stored in the browser to skip login
+    const token = window.localStorage.getItem("token");
     token && this.setState({ loggedIn: true, token: token });
   }
 
   handleLogin = (token) => {
-    window.sessionStorage.setItem("token", token);
+    // Login user and store the token in the browser
+    window.localStorage.setItem("token", token);
     this.setState({ loggedIn: true, token: token });
   };
 
   handleLogout = () => {
-    window.sessionStorage.removeItem("token");
+    // Loggout the user and remove the token from the brower
+    window.localStorage.removeItem("token");
     this.setState({ loggedIn: false, token: "" });
   };
 
   render() {
     return (
+      // If user is not logged in, return the login form and if the user is logged return the dashboard
       <div>
         {!this.state.loggedIn ? (
           <Login
