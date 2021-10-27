@@ -10,11 +10,11 @@ export default class SentContainer extends Component {
   };
 
   componentDidMount() {
-    this.getMessages();
+    this.handleGetMessages();
     this.setState({ message: {} });
   }
 
-  getMessages = () => {
+  handleGetMessages = () => {
     // Get the sent messages from the api and store them in state
     getSentMessages(this.props.token)
       .then((response) => this.setState({ messages: response.data }))
@@ -33,13 +33,13 @@ export default class SentContainer extends Component {
     // Delete a message from the api
     deleteMessage(id, this.props.token)
       .then(() => {
-        this.getMessages();
+        this.handleGetMessages();
         this.props.handleShow("Sent");
       })
       .catch(() =>
-        this.setState({
-          error: "There was an error with your request please try again",
-        })
+        this.props.handleError(
+          "There was an error with deleting your message please try again"
+        )
       );
   };
 

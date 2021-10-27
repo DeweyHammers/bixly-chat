@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Login from "./components/auth/Login";
 import Dashboard from "./components/Dashboard";
 
-class App extends Component {
+export default class App extends Component {
   state = {
     loggedIn: false,
     token: "",
@@ -45,5 +45,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

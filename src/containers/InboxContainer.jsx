@@ -10,11 +10,11 @@ export default class InboxContainer extends Component {
   };
 
   componentDidMount() {
-    this.getMessages();
+    this.handleGetMessages();
     this.setState({ message: {} });
   }
 
-  getMessages = () => {
+  handleGetMessages = () => {
     // Get the inbox messages from the api and store them in state
     getMessages(this.props.token)
       .then((response) => this.setState({ messages: response.data }))
@@ -33,13 +33,13 @@ export default class InboxContainer extends Component {
     // Delete a message from the api
     deleteMessage(id, this.props.token)
       .then(() => {
-        this.getMessages();
+        this.handleGetMessages();
         this.props.handleShow("Inbox");
       })
       .catch(() =>
-        this.setState({
-          error: "There was an error with your request please try again",
-        })
+        this.props.handleError(
+          "There was an error with deleting your message please try again"
+        )
       );
   };
 

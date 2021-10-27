@@ -4,7 +4,7 @@ import InboxContainer from "../containers/InboxContainer";
 import SentContainer from "../containers/SentContainer";
 import Compose from "./Compose";
 import Error from "./Error";
-import { sendNewMessage } from "../api";
+import { createMessage } from "../api";
 import { Container } from "react-bootstrap";
 
 export default class Dashboard extends Component {
@@ -27,7 +27,7 @@ export default class Dashboard extends Component {
 
   handleSendMessage = (message) => {
     // Create a new Message
-    sendNewMessage(message, this.props.token)
+    createMessage(message, this.props.token)
       .then(() => {
         this.setState({ show: "Sent" });
       })

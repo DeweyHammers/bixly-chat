@@ -25,7 +25,7 @@ export const getSentMessages = (token) => {
   });
 };
 
-export const sendNewMessage = (data, token) => {
+export const createMessage = (data, token) => {
   return axios.post(`${URL}/messages/`, data, {
     headers: {
       Authorization: `Token ${token}`,
