@@ -19,9 +19,7 @@ export default class InboxContainer extends Component {
     getMessages(this.props.token)
       .then((response) => this.setState({ messages: response.data }))
       .catch(() =>
-        this.setState({
-          error: "There was an error with getting your messages",
-        })
+        this.props.handleError("There was an error with getting your messages")
       );
   };
 

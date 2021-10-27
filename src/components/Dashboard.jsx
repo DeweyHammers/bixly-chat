@@ -38,6 +38,10 @@ export default class Dashboard extends Component {
       );
   };
 
+  handleError = (error) => {
+    this.setState({ error: error });
+  };
+
   handleCloseError = () => {
     this.setState({ error: false });
   };
@@ -52,6 +56,7 @@ export default class Dashboard extends Component {
             showMessage={this.state.showMessage}
             handleShow={this.handleShow}
             handleShowMessage={this.handleShowMessage}
+            handleError={this.handleError}
           />
         );
       case "Sent":
@@ -61,6 +66,7 @@ export default class Dashboard extends Component {
             showMessage={this.state.showMessage}
             handleShow={this.handleShow}
             handleShowMessage={this.handleShowMessage}
+            handleError={this.handleError}
           />
         );
       case "Compose":
