@@ -28,7 +28,7 @@ export default class App extends Component {
 
   render() {
     return (
-      // If user is not logged in, return the login form and if the user is logged return the dashboard
+      // If user is not logged in, return the login form and if the user is logged in return the dashboard
       <div>
         {!this.state.loggedIn ? (
           <Login
