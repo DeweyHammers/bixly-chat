@@ -11,7 +11,6 @@ export default class SentContainer extends Component {
 
   componentDidMount() {
     this.handleGetMessages();
-    this.setState({ message: {} });
   }
 
   handleGetMessages = () => {
@@ -33,7 +32,9 @@ export default class SentContainer extends Component {
     // Delete a message from the api
     deleteMessage(id, this.props.token)
       .then(() => {
-        this.handleGetMessages();
+        this.setState({
+          messages: this.state.messages.filter((message) => message.id !== id),
+        });
         this.props.handleShow("Sent");
       })
       .catch(() =>
